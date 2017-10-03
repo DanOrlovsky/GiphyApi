@@ -5,7 +5,7 @@
     UNCC Bootcamp
 */
 'use strict';
-
+ 
 
 // We will push this button object into the button array.
 function buttonObject(text, searchString) {
@@ -39,7 +39,6 @@ var giphyAccess = {
     // and passes that to the makeApiCall.  When the ajax call is finished, we display the results.
     performSearch: function (button) {
         $.when(this.makeApiCall($(button).attr("data-search"))).done(function (results) {
-            console.log(results);
             giphyAccess.displayResults(results);
         });
     },
@@ -48,6 +47,7 @@ var giphyAccess = {
     // Loops through the buttons array, builds a button off each object and displays them on the DOM.
     showButtons: function () {
         // Begins the loop
+        $('#buttons-view').empty();
         this.buttons.forEach(function (currentValue, idx) {
             // Creates a button to display on the screen.
             var newButton = $("<button></button>")
@@ -93,17 +93,15 @@ var giphyAccess = {
 
             // Creates an image element, waits for the image to load.
             var image = $(`<img src="${ currentValue.images.fixed_height_still.url }" alt="Giphy Gif" class="gif-img" data-alt="${ currentValue.images.fixed_height.url }" />`)
-            .on("load", function () {
 
-                // After loaded, add the image to the image div.
-                imgDiv.append(this);
+            // After loaded, add the image to the image div.
+            imgDiv.append(image);
 
-                // Add the rating to the div
-                imgDiv.append(`<h2>Rating: ${ currentValue.rating }</h2>`)
+            // Add the rating to the div
+            imgDiv.append(`<h2>Rating: ${ currentValue.rating }</h2>`)
 
-                // Add the image div to the results container.
-                container.prepend(imgDiv);
-            });
+            // Add the image div to the results container.
+            container.prepend(imgDiv);
 
         })
     },
@@ -112,7 +110,8 @@ var giphyAccess = {
     // Swaps the src and data-alt attributes.  One will store the uri to a still image, the other to the animated.
     swapImages: function(imgContainer) {
         var tempImg = $(imgContainer).attr("src");
-        $(imgContainer).attr("src", $(imgContainer).attr("data-alt"));
+        var oldImg =  $(imgContainer).attr("data-alt");
+        $(imgContainer).attr("src", oldImg);
         $(imgContainer).attr("data-alt", tempImg);
     },
 }
@@ -153,7 +152,7 @@ function startupSite() {
 }
 
 // This event listener is fired when the user clicks a gif.
-$("#results-container").on("click", ".gif-img", function() {
+$(document).on("click", ".gif-img", function(e) {
     ga.swapImages(this);
 });
 

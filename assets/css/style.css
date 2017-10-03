@@ -2,6 +2,7 @@ body {
     height: 100%;
 }
 #buttons-view {
+    text-align: center;
     min-height: 75px;
     padding: 25px;
 }
@@ -57,5 +58,4 @@ p {
 .image-display {
     float: left;
     margin: 10px;
-    
 }
