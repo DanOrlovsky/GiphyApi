@@ -6,6 +6,8 @@
 */
 'use strict';
 
+
+// We will push this button object into the button array.
 function buttonObject(text, searchString) {
     this.text = text;
     this.searchString = searchString;
@@ -13,12 +15,16 @@ function buttonObject(text, searchString) {
 
 // our app object
 var giphyAccess = {
-    api_key: "YfyxamYpvZdmkE8dW4qmwU2VZWSsB4J1", // ApiAccess Key
-    queryUrl: "https://api.giphy.com/v1/gifs/search", // Base URL
+    api_key: "YfyxamYpvZdmkE8dW4qmwU2VZWSsB4J1",        // ApiAccess Key
+    queryUrl: "https://api.giphy.com/v1/gifs/search",   // Base URL
+    
     // Ratings 0 - 2 will automatically be checked.
     ratings: ['y', 'g', 'pg', 'pg-13', 'r'], // Ratings options MPAA
-    default_rating: 1, // Default rating will be G 
-    buttons: [],
+    
+    default_rating: 1,          // Default rating will be G 
+    buttons: [],                // Array of buttonObjects, we will display buttons from this array.
+    
+    
     // makeApiCall: function(srchStr)
     // Takes a searchString as a paramater, returns the results of an ajax call
     makeApiCall: function (srchStr) {
@@ -37,7 +43,11 @@ var giphyAccess = {
             giphyAccess.displayResults(results);
         });
     },
+    
+    // showButtons: function()
+    // Loops through the buttons array, builds a button off each object and displays them on the DOM.
     showButtons: function () {
+        // Begins the loop
         this.buttons.forEach(function (currentValue, idx) {
             // Creates a button to display on the screen.
             var newButton = $("<button></button>")
@@ -49,6 +59,7 @@ var giphyAccess = {
         });
 
     },
+
     // addSearchButton: function()
     // Adds a new search button to the view-buttons div in the DOM.
     addSearchButton: function () {
@@ -96,6 +107,9 @@ var giphyAccess = {
 
         })
     },
+
+    // swapImages: function(imgContainer)
+    // Swaps the src and data-alt attributes.  One will store the uri to a still image, the other to the animated.
     swapImages: function(imgContainer) {
         var tempImg = $(imgContainer).attr("src");
         $(imgContainer).attr("src", $(imgContainer).attr("data-alt"));
@@ -128,6 +142,8 @@ function addRatings() {
     })
 }
 
+
+// Adds ratings to the forms and clears out displays
 function startupSite() {
     // Display the acceptable ratings
     addRatings();
@@ -136,7 +152,7 @@ function startupSite() {
     $("#results-container").empty();
 }
 
-
+// This event listener is fired when the user clicks a gif.
 $("#results-container").on("click", ".gif-img", function() {
     ga.swapImages(this);
 });
