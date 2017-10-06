@@ -160,6 +160,7 @@ $(document).on("click", ".gif-img", function(e) {
 $("#search-button").on("click", function (e) {
     e.preventDefault();
     ga.addSearchButton();
+    $("#gif-search").val("").focus();
 });
 
 

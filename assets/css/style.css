@@ -1,9 +1,11 @@
 body {
     height: 100%;
+    padding: 50px;
+    padding-top: 0;
 }
 #buttons-view {
     text-align: center;
-    min-height: 75px;
+    min-height: 25px;
     padding: 25px;
 }
 /* input box */
@@ -40,7 +42,7 @@ input[type=submit]:hover {
 }
 
 .input-form {
-    margin: 0 auto;
+    float: right;
     max-width: 450px;
     padding: 25px;
     border: 5px solid black;
@@ -53,7 +55,9 @@ p {
 }
 
 #results-container {
+    float: left;
     margin-top: 20px;
+    max-width: 1080px;
 }
 .image-display {
     float: left;
