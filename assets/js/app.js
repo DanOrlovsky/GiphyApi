@@ -87,6 +87,7 @@ var giphyAccess = {
         container.empty(); // Empties the results container
         if(images.length <= 0) {
             container.html("<h1>No results</h1>");
+            return;
         }
         // Cycles through each element in the array.
         images.forEach(function (currentValue, idx) {
