@@ -38,6 +38,7 @@ var giphyAccess = {
     // Takes the button which was pressed as a parameter, grabs the data-search attribute which contains the search string,
     // and passes that to the makeApiCall.  When the ajax call is finished, we display the results.
     performSearch: function (button) {
+        
         $.when(this.makeApiCall($(button).attr("data-search"))).done(function (results) {
             giphyAccess.displayResults(results);
         });
@@ -84,7 +85,9 @@ var giphyAccess = {
         var container = $("#results-container"); // Gets the container where we're displaying the results
         var images = results.data; // Assigns the data to a variable to avoid having to use .data
         container.empty(); // Empties the results container
-
+        if(images.length <= 0) {
+            container.html("<h1>No results</h1>");
+        }
         // Cycles through each element in the array.
         images.forEach(function (currentValue, idx) {
 
